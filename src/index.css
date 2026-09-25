@@ -68,7 +68,9 @@ body {
 .kpi-card .kpi-value {
   font-family: 'Poppins', system-ui, sans-serif;
   font-weight: 800;
-  font-size: 1.65rem;
+  /* scales down in narrow tiles so large totals (e.g. €77.969,00) never overflow */
+  font-size: clamp(1.05rem, 1.75vw, 1.65rem);
+  overflow-wrap: anywhere;
   margin-top: 0.2rem;
   letter-spacing: -0.01em;
 }

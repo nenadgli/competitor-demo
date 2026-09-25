@@ -9,19 +9,21 @@ import ExecutiveSummary from './pages/ExecutiveSummary'
 import OwnedChannelsReport from './pages/OwnedChannelsReport'
 import PpcMediaReport from './pages/PpcMediaReport'
 import BudgetPacingReport from './pages/BudgetPacingReport'
+import FashionInsights from './pages/FashionInsights'
 import './index.css'
 
 // DEMO build: public, read-only, no login. Production gates everything behind a
 // Supabase magic link and scopes rows per agency/client; the demo database only
 // holds generated data, so there is nothing to protect. The AI Chat tab is left
 // out because it needs the production `chat` Edge Function and an LLM key.
-type View = 'summary' | 'client' | 'agency' | 'google_ads' | 'facebook_ads' | 'blended' | 'ga4' | 'owned' | 'ppc' | 'pacing'
+type View = 'summary' | 'fashion' | 'client' | 'agency' | 'google_ads' | 'facebook_ads' | 'blended' | 'ga4' | 'owned' | 'ppc' | 'pacing'
 
 function App() {
   const [view, setView] = useState<View>('summary')
 
   const tabs: { key: View; label: string }[] = [
     { key: 'summary', label: 'Sažetak za direktora' },
+    { key: 'fashion', label: 'Fashion insights' },
     { key: 'agency', label: 'Agencijski izveštaj' },
     { key: 'client', label: 'Po klijentu' },
     { key: 'google_ads', label: 'Google Ads' },
@@ -61,6 +63,7 @@ function App() {
       </nav>
       <div className="mx-auto max-w-5xl px-8 py-10">
         {view === 'summary' && <ExecutiveSummary />}
+        {view === 'fashion' && <FashionInsights />}
         {view === 'agency' && <AgencyReport />}
         {view === 'client' && <Dashboard />}
         {view === 'google_ads' && <GoogleAdsReport />}

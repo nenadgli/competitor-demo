@@ -18,6 +18,7 @@ React + Vite + TypeScript + Supabase + Tailwind v4 + Recharts.
 
 | Klijent | Template | Priča u podacima |
 |---|---|---|
+| **Urban Style · Fashion (RS/HR/BA)** | veliki fashion retailer, ~€78k/mes | 3 tržišta, Summer Sale finale (1–9), lansiranje FW26 pre-kolekcije (18–20), back to school (26–31); letnji asortiman pada dok FW raste, konkurent ModaHub odgovara jesenjim popustom (20–24), summer sale video kreativa se "istroši" (CTR −46%), HR ima najveću korpu |
 | **Moda Market · E-commerce** | prihod / ROAS | Summer Sale flash (14–17), Demand Gen lansiran 10. u mesecu, Display prospecting bez konverzija, Meta prijavljuje ~2× više prihoda nego GA4, PMax prebacuje plan (113%) |
 | **SolarDom · Lead Generation** | leadovi, CPL, vrednost leada | vest o subvencijama (20–23) diže potražnju, CPL pada tokom meseca, generic search ograničen budžetom (IS ~38%), YouTube bez leadova, Meta lead forme jeftinije ali manje vredne |
 | **FitPuls · App Install** | instalacije, CPI, re-engagement, bez prihoda | UAC Android/iOS/Re-engagement, iOS CPI ~2× Android, promo "7 dana Premium" (21–24), push notifikacije nose owned saobraćaj |
@@ -27,6 +28,12 @@ Svaki klijent ima podatke za **sve** stranice: Sažetak za direktora, Agencijski
 Google Ads (kampanje, uređaji, ključne reči, search termini, konkurencija, impression share),
 Facebook Ads (ciljevi, plasmani, uređaji, kreative), Blended (uklj. Brandformance vs Pure Performance
 funnel), GA4, Push & Newsletter, PPC Media Plan i Budget Pacing.
+
+Fashion klijent (`clients.vertical = 'fashion'`) dodatno ima stranicu **Fashion insights**:
+tržišta (po `Mkt:` tagu i GA4 prodavnici), kategorije i bestseleri iz product feed-a (Shopping/PMax),
+kolekcije i sezona (SS/FW/core/back-to-school), efekat sale kalendara (lift naspram dana van akcija),
+umor kreativa (CTR prvih vs poslednjih 7 dana) i konkurencija (cenovni indeks po kategoriji, udeo
+popusta, novi artikli, aktivni oglasi, auction insights).
 
 `data_sources.provider` je za svakog klijenta tačno `google_ads`, `facebook`, `ga4` — i to je
 zaključano CHECK constraint-om u bazi, pa pogrešan string (`google`, `googleanalytics4`…) ne može ni
@@ -41,7 +48,7 @@ Sve je u `supabase/migrations/`:
 - `…03_report_functions.sql` — sve produkcione RPC funkcije; funnel funkcije primaju `p_client_id`
   umesto hardkodovanog `fashion-friends-rs` slug-a
 - `…05_demo_seeder.sql` — generator u šemi `demo` (nije izložena kroz API)
-- `…06_demo_templates.sql` — 4 business template-a kao JSON (kampanje, ključne reči, ad setovi,
+- `…06_demo_templates.sql`, `…11_fashion_template.sql` — 5 business template-a kao JSON (kampanje, ključne reči, ad setovi,
   GA4 izvori, owned kanali, media plan, struktura PPC izveštaja)
 
 Slučajnost je LCG `seed = (seed * 9301 + 49297) % 233280`, sa posebnim seed-om po klijentu, pa svako

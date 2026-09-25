@@ -103,6 +103,7 @@ const AD_SET_LABEL: Record<string, string> = {
   PERFORMANCE_MAX: 'Performance Max',
   DEMAND_GEN: 'Demand Gen',
   MULTI_CHANNEL: 'App (UAC)',
+  SHOPPING: 'Shopping',
   VIDEO: 'YouTube Video',
 }
 const BUCKET_LABEL: Record<string, string> = { Ecomm: 'Performance (glavni budžet)', Loyalty: 'Loyalty / App', Social: 'Social (brand awareness)' }

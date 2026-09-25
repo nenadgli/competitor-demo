@@ -23,6 +23,7 @@ export type Client = {
   business_type?: BusinessType
   sort_order?: number
   tagline?: string | null
+  vertical?: string | null
 }
 
 export type ReportMetric = {
