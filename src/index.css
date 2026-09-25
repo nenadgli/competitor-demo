@@ -1,0 +1,128 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+:root {
+  --color-paper: #ffffff;
+  --color-ink: #0f172a;
+  --color-ink-soft: #64748b;
+  --color-line: #e2e8f0;
+
+  /* Primary brand teal — drives KPI panels, active states, chart lines */
+  --color-indigo: #0ea678;
+  --color-indigo-soft: #e3f7ef;
+  --color-indigo-dark: #0b7a5a;
+
+  /* Secondary accent (kept var name for drop-in chart compatibility) */
+  --color-olive: #0f172a;
+  /* Alert / negative accent */
+  --color-rust: #e15b45;
+
+  --color-bar: #0f172a;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: 'Poppins', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.font-display {
+  font-family: 'Poppins', system-ui, sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+
+.font-mono {
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-indigo);
+  outline-offset: 2px;
+}
+
+/* Solid color KPI panel — the "quarterly sales template" hero-metric look */
+.kpi-card {
+  background: var(--color-indigo);
+  color: #ffffff;
+  padding: 1.1rem 1.25rem;
+  border-radius: 10px;
+}
+.kpi-card .kpi-label {
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: rgba(255, 255, 255, 0.75);
+}
+.kpi-card .kpi-value {
+  font-family: 'Poppins', system-ui, sans-serif;
+  font-weight: 800;
+  font-size: 1.65rem;
+  margin-top: 0.2rem;
+  letter-spacing: -0.01em;
+}
+.kpi-card.kpi-dark {
+  background: var(--color-bar);
+}
+.kpi-grid {
+  display: grid;
+  gap: 0.75rem;
+}
+
+/* Section eyebrow labels on the plain white page background (page headers) —
+   distinct from .kpi-label, which is white text meant for the dark kpi-card. */
+.eyebrow-label {
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-ink-soft);
+}
+
+/* DEMO marking — always visible so demo numbers are never mistaken for client data */
+.demo-banner {
+  background: #fde68a;
+  color: #78350f;
+  font-size: 0.78rem;
+  text-align: center;
+  padding: 0.45rem 1rem;
+}
+.demo-banner strong {
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  letter-spacing: 0.08em;
+}
+.demo-pill {
+  flex-shrink: 0;
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  color: #0f172a;
+  background: #fbbf24;
+  border-radius: 999px;
+  padding: 0.2rem 0.6rem;
+}
+.template-chip {
+  display: inline-block;
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-indigo-dark);
+  background: var(--color-indigo-soft);
+  border-radius: 4px;
+  padding: 0.1rem 0.45rem;
+  margin-left: 0.5rem;
+  vertical-align: middle;
+}
