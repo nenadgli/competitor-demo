@@ -9,6 +9,7 @@ const BUCKET_LABEL: Record<string, string> = { Ecomm: 'Performance (glavni budž
 const BUCKET_COLOR: Record<string, string> = { Ecomm: 'var(--color-indigo)', Loyalty: 'var(--color-olive)', Social: '#8a6fb0' }
 
 const fmtEUR = (n: number) => `€${n.toLocaleString('sr-RS', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
+const fmtDec = (n: number) => n.toLocaleString('sr-RS', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
 const fmtInt = (n: number) => n.toLocaleString('sr-RS', { maximumFractionDigits: 0 })
 const fmtPct = (n: number) => `${n.toLocaleString('sr-RS', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}%`
 
@@ -254,7 +255,7 @@ export default function PpcMediaReport() {
                       <td className="py-2 pr-3 text-right font-mono">{fmtInt(r.clicks)}</td>
                       <td className="py-2 pr-3 text-right font-mono">{fmtPct(ctr)}</td>
                       <td className="py-2 pr-3 text-right font-mono">{fmtInt(r.conversions)}</td>
-                      <td className="py-2 pr-3 text-right font-mono">{fmtEUR(r.conversion_value)}</td>
+                      <td className="py-2 pr-3 text-right font-mono">{L.hasValue ? fmtEUR(r.conversion_value) : '—'}</td>
                       <td className="py-2 text-right font-mono">{roasCell(r.conversion_value, r.spend)}</td>
                     </tr>
                   )
@@ -352,11 +353,11 @@ function StructureTable({
                 <td className="py-2 pr-3 text-right font-mono">{fmtEUR(g.total.spend)}</td>
                 <td className="py-2 pr-3 text-right font-mono">{g.total.reach > 0 ? fmtInt(g.total.reach) : '—'}</td>
                 <td className="py-2 pr-3 text-right font-mono">{fmtInt(g.total.impressions)}</td>
-                <td className="py-2 pr-3 text-right font-mono">{freq != null ? freq.toFixed(2) : '—'}</td>
+                <td className="py-2 pr-3 text-right font-mono">{freq != null ? fmtDec(freq) : '—'}</td>
                 <td className="py-2 pr-3 text-right font-mono">{fmtInt(g.total.clicks)}</td>
                 <td className="py-2 pr-3 text-right font-mono">{fmtPct(ctr)}</td>
                 <td className="py-2 pr-3 text-right font-mono">{fmtInt(g.total.conversions)}</td>
-                <td className="py-2 pr-3 text-right font-mono">{fmtEUR(g.total.conversion_value)}</td>
+                <td className="py-2 pr-3 text-right font-mono">{hasValue ? fmtEUR(g.total.conversion_value) : '—'}</td>
                 <td className="py-2 text-right font-mono">{g.total.spend > 0 && hasValue ? `${roas.toFixed(2)}x` : '—'}</td>
               </tr>
               {g.level !== 'campaign' &&
@@ -370,11 +371,11 @@ function StructureTable({
                       <td className="py-1.5 pr-3 text-right font-mono">{fmtEUR(sr.spend)}</td>
                       <td className="py-1.5 pr-3 text-right font-mono">{sr.reach > 0 ? fmtInt(sr.reach) : '—'}</td>
                       <td className="py-1.5 pr-3 text-right font-mono">{fmtInt(sr.impressions)}</td>
-                      <td className="py-1.5 pr-3 text-right font-mono">{srFreq != null ? srFreq.toFixed(2) : '—'}</td>
+                      <td className="py-1.5 pr-3 text-right font-mono">{srFreq != null ? fmtDec(srFreq) : '—'}</td>
                       <td className="py-1.5 pr-3 text-right font-mono">{fmtInt(sr.clicks)}</td>
                       <td className="py-1.5 pr-3 text-right font-mono">{fmtPct(srCtr)}</td>
                       <td className="py-1.5 pr-3 text-right font-mono">{fmtInt(sr.conversions)}</td>
-                      <td className="py-1.5 pr-3 text-right font-mono">{fmtEUR(sr.conversion_value)}</td>
+                      <td className="py-1.5 pr-3 text-right font-mono">{hasValue ? fmtEUR(sr.conversion_value) : '—'}</td>
                       <td className="py-1.5 text-right font-mono">{sr.spend > 0 && hasValue ? `${srRoas.toFixed(2)}x` : '—'}</td>
                     </tr>
                   )

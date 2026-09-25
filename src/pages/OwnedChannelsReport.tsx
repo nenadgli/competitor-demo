@@ -297,7 +297,7 @@ export default function OwnedChannelsReport() {
                 </tbody>
               </table>
               <p className="mt-2 text-xs text-[var(--color-ink-soft)]">
-                "Napušteta korpa" su automatizovana slanja (trigger-based), ne ručno poslati broadcast-ovi &mdash; očekivano manji obim po
+                "Napuštena korpa" su automatizovana slanja (trigger-based), ne ručno poslati broadcast-ovi &mdash; očekivano manji obim po
                 slanju, ali visoka relevantnost.
               </p>
             </section>

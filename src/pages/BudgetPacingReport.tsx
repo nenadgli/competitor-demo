@@ -269,6 +269,17 @@ export default function BudgetPacingReport() {
     return withSpend.length > 0 ? withSpend.sort((a, b) => b.report_date.localeCompare(a.report_date))[0].report_date : null
   }, [dailyRows])
 
+  // Blank the actual line after the last synced day instead of giving the <Line> its own
+  // shorter data array — Recharts 3 appends a per-Line data array to the categorical
+  // X axis, which doubled every date on this chart.
+  const chartData = useMemo(
+    () =>
+      dailyChartData.map((d) =>
+        lastActualDate && d.date > lastActualDate ? { ...d, google_actual: null, meta_actual: null } : d
+      ),
+    [dailyChartData, lastActualDate]
+  )
+
   if (error) return <p className="text-[var(--color-rust)]">{error}</p>
 
   return (
@@ -350,7 +361,7 @@ export default function BudgetPacingReport() {
                 <p className="mb-2 text-sm font-medium text-[var(--color-ink-soft)]">Google Ads</p>
                 <div className="h-56 rounded border border-[var(--color-line)] bg-white p-3">
                   <ResponsiveContainer width="100%" height="100%">
-                    <ComposedChart data={dailyChartData}>
+                    <ComposedChart data={chartData}>
                       <CartesianGrid stroke="var(--color-line)" vertical={false} />
                       <XAxis dataKey="date" tickFormatter={(d) => String(d).slice(5)} tick={{ fontSize: 10, fill: 'var(--color-ink-soft)' }} axisLine={{ stroke: 'var(--color-line)' }} tickLine={false} />
                       <YAxis tick={{ fontSize: 10, fill: 'var(--color-ink-soft)' }} axisLine={false} tickLine={false} />
@@ -365,7 +376,6 @@ export default function BudgetPacingReport() {
                         strokeWidth={2}
                         dot={false}
                         connectNulls={false}
-                        data={dailyChartData.filter((d) => !lastActualDate || d.date <= lastActualDate)}
                       />
                     </ComposedChart>
                   </ResponsiveContainer>
@@ -375,7 +385,7 @@ export default function BudgetPacingReport() {
                 <p className="mb-2 text-sm font-medium text-[var(--color-ink-soft)]">Meta Ads</p>
                 <div className="h-56 rounded border border-[var(--color-line)] bg-white p-3">
                   <ResponsiveContainer width="100%" height="100%">
-                    <ComposedChart data={dailyChartData}>
+                    <ComposedChart data={chartData}>
                       <CartesianGrid stroke="var(--color-line)" vertical={false} />
                       <XAxis dataKey="date" tickFormatter={(d) => String(d).slice(5)} tick={{ fontSize: 10, fill: 'var(--color-ink-soft)' }} axisLine={{ stroke: 'var(--color-line)' }} tickLine={false} />
                       <YAxis tick={{ fontSize: 10, fill: 'var(--color-ink-soft)' }} axisLine={false} tickLine={false} />
@@ -390,7 +400,6 @@ export default function BudgetPacingReport() {
                         strokeWidth={2}
                         dot={false}
                         connectNulls={false}
-                        data={dailyChartData.filter((d) => !lastActualDate || d.date <= lastActualDate)}
                       />
                     </ComposedChart>
                   </ResponsiveContainer>
